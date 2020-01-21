@@ -24,7 +24,7 @@ using System.Net;
 
 using System.Data.SqlClient;
 
-namespace MascoAgent
+namespace MIMSAgent
 {
     /// <summary>
     /// MainWindow.xaml에 대한 상호 작용 논리
@@ -193,7 +193,7 @@ namespace MascoAgent
             */
             do
             {
-                sqlComm.CommandText = "SELECT ISNULL(MAX(SERVER_ID), 0) + 1 FROM MCMS_SERVER_RESOURCE";
+                sqlComm.CommandText = "SELECT ISNULL(MAX(SERVER_SEQ), 0) + 1 FROM AGENT_SERVER_RESOURCE";
                 conn.Open();
                 using (SqlDataReader sqlRs = sqlComm.ExecuteReader())
                 {

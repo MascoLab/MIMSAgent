@@ -1,0 +1,15 @@
+D:\01. 내부 프로젝트\원도통합모니터링시스템\MIMSAgent\bin\Debug\MIMSAgent.exe.config
+D:\01. 내부 프로젝트\원도통합모니터링시스템\MIMSAgent\bin\Debug\MIMSAgent.exe
+D:\01. 내부 프로젝트\원도통합모니터링시스템\MIMSAgent\bin\Debug\MIMSAgent.pdb
+D:\01. 내부 프로젝트\원도통합모니터링시스템\MIMSAgent\obj\Debug\MIMSAgent.csprojAssemblyReference.cache
+D:\01. 내부 프로젝트\원도통합모니터링시스템\MIMSAgent\obj\Debug\MainWindow.g.cs
+D:\01. 내부 프로젝트\원도통합모니터링시스템\MIMSAgent\obj\Debug\App.g.cs
+D:\01. 내부 프로젝트\원도통합모니터링시스템\MIMSAgent\obj\Debug\MIMSAgent_MarkupCompile.cache
+D:\01. 내부 프로젝트\원도통합모니터링시스템\MIMSAgent\obj\Debug\MIMSAgent_MarkupCompile.lref
+D:\01. 내부 프로젝트\원도통합모니터링시스템\MIMSAgent\obj\Debug\MainWindow.baml
+D:\01. 내부 프로젝트\원도통합모니터링시스템\MIMSAgent\obj\Debug\MIMSAgent.g.resources
+D:\01. 내부 프로젝트\원도통합모니터링시스템\MIMSAgent\obj\Debug\MIMSAgent.Properties.Resources.resources
+D:\01. 내부 프로젝트\원도통합모니터링시스템\MIMSAgent\obj\Debug\MIMSAgent.csproj.GenerateResource.cache
+D:\01. 내부 프로젝트\원도통합모니터링시스템\MIMSAgent\obj\Debug\MIMSAgent.csproj.CoreCompileInputs.cache
+D:\01. 내부 프로젝트\원도통합모니터링시스템\MIMSAgent\obj\Debug\MIMSAgent.exe
+D:\01. 내부 프로젝트\원도통합모니터링시스템\MIMSAgent\obj\Debug\MIMSAgent.pdb
