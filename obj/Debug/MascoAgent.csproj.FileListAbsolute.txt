@@ -1,0 +1,15 @@
+C:\Users\155566\source\repos\MascoAgent\MascoAgent\bin\Debug\MascoAgent.exe.config
+C:\Users\155566\source\repos\MascoAgent\MascoAgent\bin\Debug\MascoAgent.exe
+C:\Users\155566\source\repos\MascoAgent\MascoAgent\bin\Debug\MascoAgent.pdb
+C:\Users\155566\source\repos\MascoAgent\MascoAgent\obj\Debug\MascoAgent.csprojAssemblyReference.cache
+C:\Users\155566\source\repos\MascoAgent\MascoAgent\obj\Debug\MainWindow.g.cs
+C:\Users\155566\source\repos\MascoAgent\MascoAgent\obj\Debug\App.g.cs
+C:\Users\155566\source\repos\MascoAgent\MascoAgent\obj\Debug\MascoAgent_MarkupCompile.cache
+C:\Users\155566\source\repos\MascoAgent\MascoAgent\obj\Debug\MascoAgent_MarkupCompile.lref
+C:\Users\155566\source\repos\MascoAgent\MascoAgent\obj\Debug\MainWindow.baml
+C:\Users\155566\source\repos\MascoAgent\MascoAgent\obj\Debug\MascoAgent.g.resources
+C:\Users\155566\source\repos\MascoAgent\MascoAgent\obj\Debug\MascoAgent.Properties.Resources.resources
+C:\Users\155566\source\repos\MascoAgent\MascoAgent\obj\Debug\MascoAgent.csproj.GenerateResource.cache
+C:\Users\155566\source\repos\MascoAgent\MascoAgent\obj\Debug\MascoAgent.csproj.CoreCompileInputs.cache
+C:\Users\155566\source\repos\MascoAgent\MascoAgent\obj\Debug\MascoAgent.exe
+C:\Users\155566\source\repos\MascoAgent\MascoAgent\obj\Debug\MascoAgent.pdb

@@ -1,0 +1,27 @@
+﻿<Window x:Class="MascoAgent.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MascoAgent"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="400" Width="500">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="0*"/>
+        </Grid.ColumnDefinitions>
+        <Button x:Name="button" Content="실행" HorizontalAlignment="Left" Height="48" Margin="326,311,0,0" VerticalAlignment="Top" Width="156" Click="Button_Click"/>
+        <Label x:Name="label" Content="IP" HorizontalAlignment="Left" Margin="10,40,0,0" VerticalAlignment="Top" Height="26" Width="20"/>
+        <Label x:Name="label1" Content="Port" HorizontalAlignment="Left" Margin="10,71,0,0" VerticalAlignment="Top" Height="26" Width="32"/>
+        <Label x:Name="label2" Content="ID" HorizontalAlignment="Left" Margin="10,133,0,0" VerticalAlignment="Top" Height="26" Width="22"/>
+        <Label x:Name="label3" Content="Password" HorizontalAlignment="Left" Margin="10,164,0,0" VerticalAlignment="Top" Height="26" Width="61"/>
+        <TextBox x:Name="txb_ip" HorizontalAlignment="Left" Height="23" Margin="100,43,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" Text="192.168.0.203"/>
+        <TextBox x:Name="txb_port" HorizontalAlignment="Left" Height="23" Margin="100,74,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" Text="1433"/>
+        <TextBox x:Name="txb_id" HorizontalAlignment="Left" Height="23" Margin="100,136,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" Text="sa"/>
+        <TextBox x:Name="txb_password" HorizontalAlignment="Left" Height="23" Margin="100,167,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" Text="t320@mascolab"/>
+        <Label x:Name="label4" Content="DB 설정" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="26" Width="54"/>
+        <Label x:Name="label5" Content="Database" HorizontalAlignment="Left" Margin="10,102,0,0" VerticalAlignment="Top" Height="26" Width="60"/>
+        <TextBox x:Name="txb_database" HorizontalAlignment="Left" Height="23" Margin="100,105,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" Text="HMNS_MIMS"/>
+    </Grid>
+</Window>
