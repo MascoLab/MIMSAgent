@@ -5,13 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MIMSAgent"
         mc:Ignorable="d"
-        Title="MainWindow" Height="400" Width="500">
-    <Grid>
+        Title="MainWindow" Height="411.321" Width="926.415">
+    <Grid Margin="0,0,-8,0">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="762*"/>
+            <ColumnDefinition Width="0*"/>
             <ColumnDefinition Width="0*"/>
         </Grid.ColumnDefinitions>
-        <Button x:Name="button" Content="실행" HorizontalAlignment="Left" Height="48" Margin="326,311,0,0" VerticalAlignment="Top" Width="156" Click="Button_Click"/>
+        <Button x:Name="button" Content="실행" HorizontalAlignment="Left" Height="48" Margin="117,246,0,0" VerticalAlignment="Top" Width="156" Click="Button_Click"/>
         <Label x:Name="label" Content="IP" HorizontalAlignment="Left" Margin="10,40,0,0" VerticalAlignment="Top" Height="26" Width="20"/>
         <Label x:Name="label1" Content="Port" HorizontalAlignment="Left" Margin="10,71,0,0" VerticalAlignment="Top" Height="26" Width="32"/>
         <Label x:Name="label2" Content="ID" HorizontalAlignment="Left" Margin="10,133,0,0" VerticalAlignment="Top" Height="26" Width="22"/>
@@ -22,6 +23,12 @@
         <TextBox x:Name="txb_password" HorizontalAlignment="Left" Height="23" Margin="100,167,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" Text="t320@mascolab"/>
         <Label x:Name="label4" Content="DB 설정" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="26" Width="54"/>
         <Label x:Name="label5" Content="Database" HorizontalAlignment="Left" Margin="10,102,0,0" VerticalAlignment="Top" Height="26" Width="60"/>
-        <TextBox x:Name="txb_database" HorizontalAlignment="Left" Height="23" Margin="100,105,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" Text="HMNS_MIMS"/>
+        <TextBox x:Name="txb_database" HorizontalAlignment="Left" Height="23" Margin="100,105,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" Text="MASCO_TEST" TextChanged="Txb_database_TextChanged"/>
+        <Label Content="사용량" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="378,0,0,202" Width="46" Height="26"/>
+        <TextBox x:Name="txb_drive" HorizontalAlignment="Left" Height="100" Margin="378,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="251" IsReadOnly="True"/>
+        <Label Content="드라이브" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="379,9,0,0"/>
+        <TextBox x:Name="txb_usage" HorizontalAlignment="Left" Height="171" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="250" Margin="379,177,0,0" IsReadOnly="True"/>
+        <TextBox x:Name="txb_process" HorizontalAlignment="Left" Height="308" TextWrapping="Wrap" VerticalAlignment="Top" Width="234" Margin="656,40,0,0"/>
+        <Label Content="프로세스" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="654,9,0,0"/>
     </Grid>
 </Window>
