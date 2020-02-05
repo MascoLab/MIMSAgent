@@ -41,10 +41,12 @@ namespace MIMSAgent
 
         private SqlConnection conn = null;
         private SqlCommand sqlComm = new SqlCommand();
-
-        private string serverId;
-        private string serverIp;
-
+        /*
+                private string serverId;
+                private string serverHddId;
+                private string serverProcessID;
+                private string serverIp;
+        */
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             /*
@@ -78,7 +80,7 @@ namespace MIMSAgent
             conn.Close();
             */
 
-            List<string> DriveList = new List<string>(); 
+            List<string> DriveList = new List<string>();
             foreach (System.IO.DriveInfo drive in System.IO.DriveInfo.GetDrives())  //hd_usage잘안나옴
             {
                 // Fixed
@@ -121,6 +123,8 @@ namespace MIMSAgent
 
         private void checkSystem()
         {
+            string serverIp = null;
+
             IPHostEntry host = Dns.GetHostEntry(Dns.GetHostName());
             foreach (IPAddress ip in host.AddressList)
             {
@@ -131,47 +135,11 @@ namespace MIMSAgent
                 }
             }
 
-            PerformanceCounter cpu = new PerformanceCounter("Processor", "% Processor Time", "_Total"); //_Total => Process.GetCurrentProcess().ProcessName는 특정 프로세스 정보를 얻을 수 있음
+            PerformanceCounter cpu = new PerformanceCounter("Processor", "% Processor Time", "_Total");
             PerformanceCounter ram = new PerformanceCounter("Memory", "Available MBytes");
-            // PerformanceCounter ram1 = new PerformanceCounter("Memory", "Committed Bytes");
-            // PerformanceCounter ram2 = new PerformanceCounter("Memory", "Commit Limit");
-            //PerformanceCounter ram3 = new PerformanceCounter("Memory", "% Committed Bytes In Use");
-            // PerformanceCounter ram4 = new PerformanceCounter("Memory", "Pool Paged Bytes");
-            // PerformanceCounter ram5 = new PerformanceCounter("Memory", "Pool Nonpaged Bytes");
-            // PerformanceCounter ram6 = new PerformanceCounter("Memory", "Cache Bytes");
-            //PerformanceCounter ram_max = new PerformanceCounter("Memory", "Total MBytes");
             PerformanceCounter hdd = new PerformanceCounter("PhysicalDisk", "% Disk Time", "_Total");
-
-            /*
-            PerformanceCounter("Processor", "% Processor Time", "_Total");
-            PerformanceCounter("Processor", "% Privileged Time", "_Total");
-            PerformanceCounter("Processor", "% Interrupt Time", "_Total");
-            PerformanceCounter("Processor", "% DPC Time", "_Total");
-            PerformanceCounter("Memory", "Available MBytes", null);
-            PerformanceCounter("Memory", "Committed Bytes", null);
-            PerformanceCounter("Memory", "Commit Limit", null);
-            PerformanceCounter("Memory", "% Committed Bytes In Use", null);
-            PerformanceCounter("Memory", "Pool Paged Bytes", null);
-            PerformanceCounter("Memory", "Pool Nonpaged Bytes", null);
-            PerformanceCounter("Memory", "Cache Bytes", null);
-            PerformanceCounter("Paging File", "% Usage", "_Total");
-            PerformanceCounter("PhysicalDisk", "Avg. Disk Queue Length", "_Total");
-            PerformanceCounter("PhysicalDisk", "Disk Read Bytes/sec", "_Total");
-            PerformanceCounter("PhysicalDisk", "Disk Write Bytes/sec", "_Total");
-            PerformanceCounter("PhysicalDisk", "Avg. Disk sec/Read", "_Total");
-            PerformanceCounter("PhysicalDisk", "Avg. Disk sec/Write", "_Total");
-            PerformanceCounter("PhysicalDisk", "% Disk Time", "_Total");
-            PerformanceCounter("Process", "Handle Count", "_Total");
-            PerformanceCounter("Process", "Thread Count", "_Total");
-            PerformanceCounter("System", "Context Switches/sec", null);
-            PerformanceCounter("System", "System Calls/sec", null);
-            PerformanceCounter("System", "Processor Queue Length", null);
-            */
-
-            /*
-            PerformanceCounter ram = new PerformanceCounter("Mono Memory", "Available Physical Memory");
-            PerformanceCounter ram_max = new PerformanceCounter("Mono Memory", "Total Physical Memory");
-            */
+            PerformanceCounter processCpu = new PerformanceCounter("Process", "% Processor Time", "Taskmgr"); //특정 프로세스 cpu 사용량
+            PerformanceCounter processMemory = new PerformanceCounter("Process", "Working Set - Private", "Taskmgr"); //연결된 프로세스의 실제 메모리 사용량
 
             // string process_name = Process.GetCurrentProcess().ProcessName;
             // PerformanceCounter prcess_cpu = new PerformanceCounter("Process", "% Processor Time", Process.GetCurrentProcess().ProcessName);
@@ -211,60 +179,12 @@ namespace MIMSAgent
             sqlConn.Close();
             */
 
-            
+
             do
             {
-                sqlComm.Parameters.Clear();
-                sqlComm.CommandText = "SELECT ISNULL(MAX(SERVER_SEQ), 0) + 1 FROM AGENT_SERVER_RESOURCE_TEST"; // AGENT_SERVER_RESOURCE 나중에 바꿔주어야함 //UI부분도 MASCO_TEST => HMNS_AGENT로
-                try
-                {
-                    conn.Open();
-
-                    using (SqlDataReader sqlRs = sqlComm.ExecuteReader())
-                    {
-                        while (sqlRs.Read())
-                        {
-                            serverId = sqlRs[0].ToString();
-                        }
-                    }
-                }
-                catch (SqlException ex)
-                {
-                    StringBuilder errorMessages = new StringBuilder();
-                    for (int i = 0; i < ex.Errors.Count; i++)
-                    {
-                        errorMessages.Append("Message: " + ex.Errors[i].Message);
-                    }
-                    Console.WriteLine(errorMessages.ToString());
-                    //데이터베이스 내에서 속성이 변경되면 발생하는 에러부분 예외처리
-                    MessageBox.Show(errorMessages.ToString());
-                }
-                sqlComm.ExecuteNonQuery(); //test
-                conn.Close();
-
-                //Console.WriteLine("ID : " + serverId);
-                //Console.WriteLine("IP : " + serverIp);
-
-                //Debug.WriteLine("CPU : " + cpu.NextValue().ToString() + "%");
-                //Debug.WriteLine("MEMORY : " + ram.NextValue().ToString() + "MB");
-                //Console.WriteLine("HDD : " + hdd.NextValue().ToString());
-                // Debug.WriteLine("MEMORY : " + (ram1.NextValue() / 1024).ToString() + "MB");
-                // Debug.WriteLine("MEMORY : " + (ram2.NextValue() / 1024).ToString() + "MB");
-                // Debug.WriteLine("MEMORY : " + (ram3.NextValue() / 1024).ToString() + "MB");
-                // Debug.WriteLine("MEMORY : " + (ram4.NextValue() / 1024).ToString() + "MB");
-                // Debug.WriteLine("MEMORY : " + (ram5.NextValue() / 1024).ToString() + "MB");
-                // Debug.WriteLine("MEMORY : " + (ram6.NextValue() / 1024).ToString() + "MB");
-                // Debug.WriteLine("MEMORY(MAX) : " + ram_max.RawValue + "MB");
-                // Debug.WriteLine("PROCESS : " + process_name + "(" + prcess_cpu.NextValue().ToString() + "%)");
-                //Console.WriteLine();
-
-
-
-
                 ManagementClass objMC = new ManagementClass("Win32_OperatingSystem"); //총 메모리양 구하기 위해서 사용
                 ManagementObjectCollection objMOC = objMC.GetInstances();
                 var TotMo = "";
-                var testCPU = "";
                 foreach (ManagementObject objMO in objMOC)
                 {
                     TotMo = objMO["TotalVisibleMemorySize"].ToString();
@@ -279,52 +199,60 @@ namespace MIMSAgent
                 var MemoryUsage = TotMoDivision - ram.NextValue();
                 var dateTime = System.DateTime.Now.ToString("yyyy/MM/dd hh:mm:ss");
 
+                //AGENT_SERVER_RESOURCE QUERY      //insertServerResource <- insert
+                string serverId = insertServerResource(serverIp, cpuConvert, MemoryUsage, TotMoDivision);
+
+
                 //+"MEMORY(Available) : " + ram.NextValue().ToString() + "MB" + "\n"
                 var usage = "ID : " + serverId + "\n" + "IP : " + serverIp + "\n" + "CPU : " + cpuConvert + "%" + "\n" + "MEMORY(USAGE) : " + MemoryUsage + "MB" + "\n"
                             + "MEMORY(MAX) : " + TotMoDivision + "MB" + "\n" + "DateTime : " + dateTime + "\n";
                 Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate { txb_usage.Text = usage; }));
                 //다른 스레드에서 해당 개체를 사용하므로 액세스 오류발생하기 때문에 스레드간의 자원을 공유하기위해 사용
 
-                
-                //Process processInfo2 = Process.GetCurrentProcess(); //현재 사용하고 있는 프로세스. 구글에 c# GetProcess() 참고
+
+                //specific process cpu,memory usage test
+                //PerformanceCounter processCpu = new PerformanceCounter("Process", "% Processor Time", "Taskmgr"); //특정 프로세스 cpu 사용량
+                //PerformanceCounter processMemory = new PerformanceCounter("Process", "Working Set - Private", "Taskmgr"); //연결된 프로세스의 실제 메모리 사용량
+                ////PerformanceCounter processDisk = new PerformanceCounter("PhysicalDisk", "% Idle Time", "_Total"); 
+                //var processMemoryConvert = processMemory.NextValue() / 1048576;
+                //processCpu.NextValue();
+                //Thread.Sleep(10000); 
+                //Console.WriteLine("Process CPU : " + processCpu.NextValue() + "%"); 
+                //Console.WriteLine("Process Memory : " + processMemoryConvert + "MB");
+                ////Console.WriteLine("Process Disk : " + processDisk.NextValue() + "MB/s");
+                //Console.WriteLine();
+
+
+                //AGENT_SERVER_RESOURCE_PROCESS QUERY
                 Process[] processInfo = Process.GetProcesses();
                 List<string> ProcessList = new List<string>();
                 foreach (Process p in processInfo)
                 {
-                    var txbProcess = "Process Name: " + p.ProcessName;
+                    var processName = p.ProcessName;
+                    var txbProcess = "Process Name: " + processName;
                     ProcessList.Add(txbProcess + "\n");
+                    Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate { txb_process.Text = ProcessListTemp(ProcessList); }));
+                    if (p.ProcessName == "Taskmgr")
+                    {
+                        var processMemoryConvert = processMemory.NextValue() / 1048576;
+
+                        sqlComm.Parameters.Clear();
+                        sqlComm.CommandText = "insert into dbo.AGENT_SERVER_RESOURCE_PROCESS values (" +
+                            "( SELECT ISNULL(MAX(SERVER_PROCESS_SEQ), 0) + 1 FROM AGENT_SERVER_RESOURCE_PROCESS )," +
+                            "@param2,@param3,@param4,@param5,GETDATE() )";
+                        //sqlComm.Parameters.AddWithValue("@param1", serverProcessID);
+                        sqlComm.Parameters.AddWithValue("@param2", serverId);
+                        sqlComm.Parameters.AddWithValue("@param3", processName);
+                        sqlComm.Parameters.AddWithValue("@param4", processCpu.NextValue());
+                        sqlComm.Parameters.AddWithValue("@param5", processMemoryConvert);
+                        //sqlComm.Parameters.AddWithValue("@param6", dateTime);
+                        conn.Open();
+                        sqlComm.ExecuteNonQuery();
+                        conn.Close();
+                    }
                 }
-                Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate { txb_process.Text = ProcessListTemp(ProcessList); }));
-                //MASCO_TEST => AGENT_SERVER_RESOURCE_PROCESS_TEST
-                sqlComm.CommandText = "insert into dbo.AGENT_SERVER_RESOURCE_PROCESS_TEST values (@param2,@param3,@param4,@param5,@param6)";
-                //sqlComm.Parameters.AddWithValue("@param1", SERVER_PROCESS_SEQ);
-                sqlComm.Parameters.AddWithValue("@param2", serverId);
-                sqlComm.Parameters.AddWithValue("@param3", "asdf"); 
-                sqlComm.Parameters.AddWithValue("@param4", cpuConvert);
-                sqlComm.Parameters.AddWithValue("@param5", MemoryUsage);
-                sqlComm.Parameters.AddWithValue("@param6", dateTime);
-                conn.Open();
-                sqlComm.ExecuteNonQuery();
-                conn.Close();
 
-
-
-                //MASCO_TEST => AGENT_SERVER_RESOURCE_TEST
-                sqlComm.Parameters.Clear();
-                sqlComm.CommandText = "insert into dbo.AGENT_SERVER_RESOURCE_TEST values (@param1,@param2,@param3,@param4,@param5,@param6)";
-                sqlComm.Parameters.AddWithValue("@param1", serverId);  
-                sqlComm.Parameters.AddWithValue("@param2", serverIp); 
-                sqlComm.Parameters.AddWithValue("@param3", cpuConvert); 
-                sqlComm.Parameters.AddWithValue("@param4", MemoryUsage); 
-                sqlComm.Parameters.AddWithValue("@param5", TotMoDivision); 
-                sqlComm.Parameters.AddWithValue("@param6", dateTime); 
-                conn.Open();
-                sqlComm.ExecuteNonQuery();
-                conn.Close();
-
-
-
-                //MASCO_TEST => AGENT_SERVER_RESOURCE_HDD_TEST
+                //AGENT_SERVER_RESOURCE_HDD QUERY
                 foreach (System.IO.DriveInfo drive in System.IO.DriveInfo.GetDrives())
                 {
                     if (drive.IsReady)
@@ -334,24 +262,72 @@ namespace MIMSAgent
                         var driveTotMB = drive.TotalSize / 1048576;
 
                         sqlComm.Parameters.Clear();
-                        sqlComm.CommandText = "insert into dbo.AGENT_SERVER_RESOURCE_HDD_TEST values (@param2,@param3,@param4,@param5,@param6)";
-                        //sqlComm.Parameters.AddWithValue("@param1", SERVER_HDD_SEQ); 
+                        sqlComm.CommandText = "insert into dbo.AGENT_SERVER_RESOURCE_HDD values (" +
+                            "(SELECT ISNULL(MAX(SERVER_HDD_SEQ), 0) + 1 FROM AGENT_SERVER_RESOURCE_HDD)," +
+                            "@param2,@param3,@param4,@param5,GETDATE())";
+                        //sqlComm.Parameters.AddWithValue("@param1", serverHddId);
                         sqlComm.Parameters.AddWithValue("@param2", serverId);
-                        sqlComm.Parameters.AddWithValue("@param3", drive.Name); 
+                        sqlComm.Parameters.AddWithValue("@param3", drive.Name);
                         sqlComm.Parameters.AddWithValue("@param4", driveUsageMB);
-                        sqlComm.Parameters.AddWithValue("@param5", driveTotMB); 
-                        sqlComm.Parameters.AddWithValue("@param6", dateTime);
+                        sqlComm.Parameters.AddWithValue("@param5", driveTotMB);
+                        //sqlComm.Parameters.AddWithValue("@param6", dateTime);
                         conn.Open();
                         sqlComm.ExecuteNonQuery();
                         conn.Close();
                     }
                 }
 
-
-
-
                 Thread.Sleep(10000);
             } while (true);
+        }
+
+
+        private string insertServerResource(String serverIp, int cpuConvert, float MemoryUsage, float TotMoDivision)
+        {
+            string serverId = null;
+
+            sqlComm.Parameters.Clear();
+
+            sqlComm.CommandText = "SELECT ISNULL(MAX(SERVER_SEQ), 0) + 1 FROM AGENT_SERVER_RESOURCE";
+            try
+            {
+                conn.Open();
+
+                using (SqlDataReader sqlRs = sqlComm.ExecuteReader())
+                {
+                    while (sqlRs.Read())
+                    {
+                        serverId = sqlRs[0].ToString();
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                StringBuilder errorMessages = new StringBuilder();
+                for (int i = 0; i < ex.Errors.Count; i++)
+                {
+                    errorMessages.Append("Message: " + ex.Errors[i].Message);
+                }
+                Console.WriteLine(errorMessages.ToString());
+                //데이터베이스 내에서 속성이 변경되면 발생하는 에러부분 예외처리
+                MessageBox.Show(errorMessages.ToString());
+            }
+            sqlComm.ExecuteNonQuery(); //test
+            conn.Close();
+
+            sqlComm.Parameters.Clear();
+            sqlComm.CommandText = "insert into dbo.AGENT_SERVER_RESOURCE values (@param1,@param2,@param3,@param4,@param5, GETDATE() )";
+            sqlComm.Parameters.AddWithValue("@param1", serverId);
+            sqlComm.Parameters.AddWithValue("@param2", serverIp);
+            sqlComm.Parameters.AddWithValue("@param3", cpuConvert);
+            sqlComm.Parameters.AddWithValue("@param4", MemoryUsage);
+            sqlComm.Parameters.AddWithValue("@param5", TotMoDivision);
+            //          sqlComm.Parameters.AddWithValue("@param6", dateTime);
+            conn.Open();
+            sqlComm.ExecuteNonQuery();
+            conn.Close();
+
+            return serverId;
         }
 
 
@@ -373,9 +349,5 @@ namespace MIMSAgent
        }
         */
 
-        private void Txb_database_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
     }
 }

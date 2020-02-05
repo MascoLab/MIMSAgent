@@ -23,7 +23,7 @@
         <TextBox x:Name="txb_password" HorizontalAlignment="Left" Height="23" Margin="100,167,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" Text="t320@mascolab"/>
         <Label x:Name="label4" Content="DB 설정" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="26" Width="54"/>
         <Label x:Name="label5" Content="Database" HorizontalAlignment="Left" Margin="10,102,0,0" VerticalAlignment="Top" Height="26" Width="60"/>
-        <TextBox x:Name="txb_database" HorizontalAlignment="Left" Height="23" Margin="100,105,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" Text="MASCO_TEST" TextChanged="Txb_database_TextChanged"/>
+        <TextBox x:Name="txb_database" HorizontalAlignment="Left" Height="23" Margin="100,105,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" Text="HMNS_AGENT"/>
         <Label Content="사용량" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="378,0,0,202" Width="46" Height="26"/>
         <TextBox x:Name="txb_drive" HorizontalAlignment="Left" Height="100" Margin="378,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="251" IsReadOnly="True"/>
         <Label Content="드라이브" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="379,9,0,0"/>
