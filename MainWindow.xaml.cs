@@ -121,6 +121,8 @@ namespace MIMSAgent
         }
 
 
+        float tempCPU;
+
         private void checkSystem()
         {
             string serverIp = null;
@@ -138,8 +140,10 @@ namespace MIMSAgent
             PerformanceCounter cpu = new PerformanceCounter("Processor", "% Processor Time", "_Total");
             PerformanceCounter ram = new PerformanceCounter("Memory", "Available MBytes");
             PerformanceCounter hdd = new PerformanceCounter("PhysicalDisk", "% Disk Time", "_Total");
-            PerformanceCounter processCpu = new PerformanceCounter("Process", "% Processor Time", "Taskmgr"); //특정 프로세스 cpu 사용량
-            PerformanceCounter processMemory = new PerformanceCounter("Process", "Working Set - Private", "Taskmgr"); //연결된 프로세스의 실제 메모리 사용량
+
+            PerformanceCounter processCpu1 = new PerformanceCounter("Process", "% Processor Time", "kairos"); //특정 프로세스 cpu 사용량
+            PerformanceCounter processCpu2 = new PerformanceCounter("Process", "% Processor Time", "DailyDetecterConsole_x64_v1_2_0_1");
+            PerformanceCounter processCpu3 = new PerformanceCounter("Process", "% Processor Time", "sqlservr");
 
             // string process_name = Process.GetCurrentProcess().ProcessName;
             // PerformanceCounter prcess_cpu = new PerformanceCounter("Process", "% Processor Time", Process.GetCurrentProcess().ProcessName);
@@ -178,7 +182,6 @@ namespace MIMSAgent
             sqlComm.ExecuteNonQuery();
             sqlConn.Close();
             */
-
 
             do
             {
@@ -232,7 +235,33 @@ namespace MIMSAgent
                     var txbProcess = "Process Name: " + processName;
                     ProcessList.Add(txbProcess + "\n");
                     Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate { txb_process.Text = ProcessListTemp(ProcessList); }));
-                    if (p.ProcessName == "Taskmgr")
+
+                    //PerformanceCounter processCpu = new PerformanceCounter("Process", "% Processor Time", processName); //특정 프로세스 cpu 사용량
+                    PerformanceCounter processMemory = new PerformanceCounter("Process", "Working Set - Private", processName); //연결된 프로세스의 실제 메모리 사용량
+
+                    bool isKairosChecked = chb_kairos.Dispatcher.Invoke(new Func<bool>(() => (bool)chb_kairos.IsChecked));
+                    bool isSqlChecked = chb_sql.Dispatcher.Invoke(new Func<bool>(() => (bool)chb_sql.IsChecked));
+                    bool isdailyChecked = chb_daily.Dispatcher.Invoke(new Func<bool>(() => (bool)chb_daily.IsChecked));
+
+                    //PerformanceCounter가 do-while 밖에 있어야 cpu의 정확한 값을 얻을 수 있어서(thread때문에 안에 있으면 항상 0만뜸) tempCPU라는 임시공간에 저장하여 쿼리문 작성함.
+                    if (processName == "kairos")
+                    {
+                        tempCPU = processCpu1.NextValue();
+                    }
+                    else if (processName == "DailyDetecterConsole_x64_v1_2_0_1")
+                    {
+                        tempCPU = processCpu2.NextValue();
+                    }
+                    else if (processName == "sqlservr")
+                    {
+                        tempCPU = processCpu3.NextValue();
+                    }
+
+
+                    if (processName == "kairos" && isKairosChecked == true ||
+                        processName == "DailyDetecterConsole_x64_v1_2_0_1" && isdailyChecked == true ||
+                        processName == "sqlservr" && isSqlChecked == true)
+                        
                     {
                         var processMemoryConvert = processMemory.NextValue() / 1048576;
 
@@ -243,7 +272,7 @@ namespace MIMSAgent
                         //sqlComm.Parameters.AddWithValue("@param1", serverProcessID);
                         sqlComm.Parameters.AddWithValue("@param2", serverId);
                         sqlComm.Parameters.AddWithValue("@param3", processName);
-                        sqlComm.Parameters.AddWithValue("@param4", processCpu.NextValue());
+                        sqlComm.Parameters.AddWithValue("@param4", tempCPU);
                         sqlComm.Parameters.AddWithValue("@param5", processMemoryConvert);
                         //sqlComm.Parameters.AddWithValue("@param6", dateTime);
                         conn.Open();
@@ -329,6 +358,8 @@ namespace MIMSAgent
 
             return serverId;
         }
+
+
 
 
         /*
