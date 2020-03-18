@@ -18,10 +18,10 @@
         <Label x:Name="label1" Content="Port" HorizontalAlignment="Left" Margin="10,71,0,0" VerticalAlignment="Top" Height="26" Width="32"/>
         <Label x:Name="label2" Content="ID" HorizontalAlignment="Left" Margin="10,133,0,0" VerticalAlignment="Top" Height="26" Width="22"/>
         <Label x:Name="label3" Content="Password" HorizontalAlignment="Left" Margin="10,164,0,0" VerticalAlignment="Top" Height="26" Width="61" Grid.ColumnSpan="2"/>
-        <TextBox x:Name="txb_ip" HorizontalAlignment="Left" Height="23" Margin="34.995,43,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" Text="192.168.0.203" Grid.Column="1"/>
-        <TextBox x:Name="txb_port" HorizontalAlignment="Left" Height="23" Margin="34.995,74,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" Text="1433" Grid.Column="1"/>
-        <TextBox x:Name="txb_id" HorizontalAlignment="Left" Height="23" Margin="34.995,136,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" Text="sa" Grid.Column="1"/>
-        <TextBox x:Name="txb_password" HorizontalAlignment="Left" Height="23" Margin="34.995,167,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" Text="t320@mascolab" Grid.Column="1"/>
+        <TextBox x:Name="txb_ip" HorizontalAlignment="Left" Height="23" Margin="34.995,43,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" Text="10.206.78.145" Grid.Column="1"/>
+        <TextBox x:Name="txb_port" HorizontalAlignment="Left" Height="23" Margin="34.995,74,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" Text="1247" Grid.Column="1"/>
+        <TextBox x:Name="txb_id" HorizontalAlignment="Left" Height="23" Margin="34.995,136,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" Text="map_union" Grid.Column="1"/>
+        <TextBox x:Name="txb_password" HorizontalAlignment="Left" Height="23" Margin="34.995,167,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" Text="map_union!1" Grid.Column="1"/>
         <Label x:Name="label4" Content="DB 설정" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="26" Width="54"/>
         <Label x:Name="label5" Content="Database" HorizontalAlignment="Left" Margin="10,102,0,0" VerticalAlignment="Top" Height="26" Width="60" Grid.ColumnSpan="2"/>
         <TextBox x:Name="txb_database" HorizontalAlignment="Left" Height="23" Margin="34.995,105,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" Text="HMNS_AGENT" Grid.Column="1"/>
@@ -33,8 +33,8 @@
         <Label Content="전체 프로세스" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="590,9,0,0" Grid.Column="1" Width="90"/>
         <TextBox Grid.Column="1" HorizontalAlignment="Left" Height="115" Margin="842,44,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="249" IsReadOnly="True"/>
         <Label Content="프로세스 선택" Grid.Column="1" HorizontalAlignment="Left" Margin="839,10,0,0" VerticalAlignment="Top" Width="100"/>
-        <CheckBox Name= "chb_kairos" Content="kairos.exe" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="1" Margin="852,57,0,0"/>
-        <CheckBox Name= "chb_daily" Content="DailyDetecterConsole_x64_v1_2_0_1.exe" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="1" Margin="852,93,0,0"/>
-        <CheckBox Name= "chb_sql" Content="sqlservr" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="1" Margin="852,129,0,0"/>
+        <CheckBox Name= "chb_kairos" Content="kairos.exe" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="1" Margin="852,57,0,0" IsChecked="True"/>
+        <CheckBox Name= "chb_daily" Content="DailyDetecterConsole_x64_v1_2_0_1.exe" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="1" Margin="852,93,0,0" IsChecked="True"/>
+        <CheckBox Name= "chb_sql" Content="sqlservr" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="1" Margin="852,129,0,0" IsChecked="True"/>
     </Grid>
 </Window>

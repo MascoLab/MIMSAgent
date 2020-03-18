@@ -266,9 +266,21 @@ namespace MIMSAgent
                         var processMemoryConvert = processMemory.NextValue() / 1048576;
 
                         sqlComm.Parameters.Clear();
+                        /*
                         sqlComm.CommandText = "insert into dbo.AGENT_SERVER_RESOURCE_PROCESS values (" +
                             "( SELECT ISNULL(MAX(SERVER_PROCESS_SEQ), 0) + 1 FROM AGENT_SERVER_RESOURCE_PROCESS )," +
                             "@param2,@param3,@param4,@param5,GETDATE() )";
+                        */
+                        sqlComm.CommandText = "insert into dbo.AGENT_SERVER_RESOURCE_PROCESS " +
+                                                "SELECT " +
+                                                    "ISNULL( MAX( SERVER_PROCESS_SEQ ), 0 ) + 1, " +
+                                                    "@param2, " +
+                                                    "@param3, " +
+                                                    "@param4, " +
+                                                    "@param5, " +
+                                                    "GETDATE() " +
+                                                "FROM AGENT_SERVER_RESOURCE_PROCESS";
+
                         //sqlComm.Parameters.AddWithValue("@param1", serverProcessID);
                         sqlComm.Parameters.AddWithValue("@param2", serverId);
                         sqlComm.Parameters.AddWithValue("@param3", processName);
@@ -291,9 +303,20 @@ namespace MIMSAgent
                         var driveTotMB = drive.TotalSize / 1048576;
 
                         sqlComm.Parameters.Clear();
+                        /*
                         sqlComm.CommandText = "insert into dbo.AGENT_SERVER_RESOURCE_HDD values (" +
                             "(SELECT ISNULL(MAX(SERVER_HDD_SEQ), 0) + 1 FROM AGENT_SERVER_RESOURCE_HDD)," +
                             "@param2,@param3,@param4,@param5,GETDATE())";
+                        */
+                        sqlComm.CommandText = "insert into dbo.AGENT_SERVER_RESOURCE_HDD " +
+                                                "SELECT " +
+                                                    "ISNULL( MAX( SERVER_HDD_SEQ ), 0 ) + 1, " +
+                                                    "@param2, " +
+                                                    "@param3, " +
+                                                    "@param4, " +
+                                                    "@param5, " +
+                                                    "GETDATE() " +
+                                                "FROM AGENT_SERVER_RESOURCE_HDD";
                         //sqlComm.Parameters.AddWithValue("@param1", serverHddId);
                         sqlComm.Parameters.AddWithValue("@param2", serverId);
                         sqlComm.Parameters.AddWithValue("@param3", drive.Name);
